@@ -1,19 +1,26 @@
 <template>
   <div class="list-items">
     <template v-if="loading">
-      loading
+     <div v-for="n in 6" :key="n" class="loading-item">
+       <span class="glow-checkbox" />
+       <span class="glow-text"> <span>Loading</span> <span>cool</span> <span>state</span> </span>
+     </div>
     </template>
-    <template v-else-if="isEmpty">
-      empty
-    </template>
+
+    <div v-else-if="isEmpty" class="list-items">
+     <div class="wrapper-message">
+       <span class="icon-check" />
+       <div class="title-message">You have no tasks</div>
+       <div class="subtitle-message">Sit back and relax</div>
+     </div>
+    </div>
+
     <template v-else>
-      <Task
-        v-for="task in tasks"
-        :key="task.id"
-        :task="task"
-        @archive-task="onArchiveTask"
-        @pin-task="onPinTask"
-      />
+     <Task v-for="task in tasksInOrder"
+       :key="task.id"
+       :task="task"
+       @archive-task="onArchiveTask"
+       @pin-task="onPinTask"/>
     </template>
   </div>
 </template>
@@ -35,9 +42,12 @@
       props = reactive(props);
       return {
         isEmpty: computed(() => props.tasks.length === 0),
-        /**
-         * Event handler for archiving tasks
-         */
+        tasksInOrder:computed(()=>{
+          return [
+            ...props.tasks.filter(t => t.state === 'TASK_PINNED'),
+            ...props.tasks.filter(t => t.state !== 'TASK_PINNED'),
+          ]
+        }),
         onArchiveTask(taskId) {
           emit('archive-task', taskId);
         },

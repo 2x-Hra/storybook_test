@@ -27,7 +27,7 @@ const Template = args => ({
   template: '<Task v-bind="args" />',
 });
 
-export const Default = Template.bind({});
+export const Default = Template.bind({}); //DEFAULT tab in storyBook
 Default.args = {
   task: {
     id: '1',
@@ -37,7 +37,7 @@ Default.args = {
   },
 };
 
-export const Pinned = Template.bind({});
+export const Pinned = Template.bind({}); //Pinned tab in storyBook
 Pinned.args = {
   task: {
     ...Default.args.task,
@@ -45,7 +45,7 @@ Pinned.args = {
   },
 };
 
-export const Archived = Template.bind({});
+export const Archived = Template.bind({}); //Archived tab in storyBook
 Archived.args = {
   task: {
     ...Default.args.task,

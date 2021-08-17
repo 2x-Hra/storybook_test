@@ -1,5 +1,7 @@
 <template>
   <div :class="classes">
+    
+
     <label class="checkbox">
       <input type="checkbox" :checked="isChecked" disabled name="checked" />
       <span class="checkbox-custom" @click="archiveTask" />
@@ -8,6 +10,7 @@
       <input type="text" :value="task.title" readonly placeholder="Input title" />
     </div>
     <div class="actions">
+      
       <a v-if="!isChecked" @click="pinTask">
         <span class="icon-star" />
       </a>
